@@ -1,9 +1,11 @@
 console.log("Welcome to gambler simulation problem");
+const prompt = require('prompt-sync')();
 
 let stake_amount = 100;
 const bet_amount = 1;
 let bet_won = [];
 let bet_lose = [];
+
 
 //console.log("Stake amount for the day", stake_amount);
 //console.log("Bet amount for a game", bet_amount);
@@ -14,8 +16,8 @@ function getRandom() {
 
 //calculating stake amount for a day
 function calculateAmountForADay(stake_amount,day) {
-    won_bet = 0;
-    lose_bet = 0;
+    let won_bet = 0;
+    let lose_bet = 0;
     while (stake_amount > 50 && stake_amount < 150) {
         if (getRandom() == 1) {
             stake_amount++;
@@ -67,3 +69,13 @@ const getResult = () => {
     console.log("Unluckiest Day : ",bet_lose);
 }
 getResult();
+while(true){
+    bet_won = [];
+    bet_lose = [];
+    console.log("Press 1 to play again or Any other key to exit");
+    let option = prompt();
+    if(option == 1)
+        getResult();
+    else
+        break;
+}
