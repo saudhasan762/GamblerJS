@@ -2,26 +2,35 @@ console.log("Welcome to gambler simulation problem");
 
 let stake_amount = 100;
 const bet_amount = 1;
+let bet_won = [];
+let bet_lose = [];
 
 //console.log("Stake amount for the day", stake_amount);
 //console.log("Bet amount for a game", bet_amount);
 
-// function getRandom() {
-//     return Math.floor(Math.random() * 10) % 2;
-// }
+function getRandom() {
+    return Math.floor(Math.random() * 10) % 2;
+}
 
 //calculating stake amount for a day
-function calculateAmountForADay(stake_amount) {
+function calculateAmountForADay(stake_amount,day) {
+    won_bet = 0;
+    lose_bet = 0;
     while (stake_amount > 50 && stake_amount < 150) {
-        let random = Math.floor(Math.random() * 10) % 2;
-        if (random == 1) {
+        if (getRandom() == 1) {
             stake_amount++;
+            won_bet++;
             //console.log(" Stake Amount", stake_amount);
         } else {
             stake_amount--;
+            lose_bet++;
             //console.log(" Stake Amount", stake_amount);
         }
     }
+    if(won_bet > lose_bet)
+        bet_won.push(day);
+    else
+        bet_lose.push(day);
     return stake_amount;
 }
 
@@ -43,7 +52,7 @@ const getResult = () => {
     let lost_amount = 0;
     for (let i = 1; i <= 20; i++) {
         stake_amount = 100;
-        let amount = calculateAmountForADay(stake_amount);
+        let amount = calculateAmountForADay(stake_amount,i);
         if (amount == 150){
             console.log("Day",i,"Amount Won", amount);
             win_amount = win_amount + 50;
@@ -54,5 +63,7 @@ const getResult = () => {
         }
     }
     checkWinOrLose(win_amount, lost_amount);
+    console.log("Luckiest Day : ",bet_won);
+    console.log("Unluckiest Day : ",bet_lose);
 }
 getResult();
